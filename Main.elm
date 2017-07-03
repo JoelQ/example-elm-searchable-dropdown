@@ -4,7 +4,7 @@ import Html exposing (..)
 
 
 main =
-    ul [] (List.map dropdownItem fruits)
+    view fruits
 
 
 fruits : List String
@@ -15,6 +15,11 @@ fruits =
     , "peaches"
     , "strawberries"
     ]
+
+
+view : List String -> Html a
+view values =
+    ul [] (List.map dropdownItem values)
 
 
 dropdownItem : String -> Html a
