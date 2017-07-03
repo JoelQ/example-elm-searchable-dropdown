@@ -12,7 +12,11 @@ type State
     | Closed
 
 
-initialModel : { state : State, values : List String }
+type alias Model =
+    { state : State, values : List String }
+
+
+initialModel : Model
 initialModel =
     { state = Open
     , values = fruits
@@ -29,17 +33,17 @@ fruits =
     ]
 
 
-view : { state : State, values : List String } -> Html a
+view : Model -> Html a
 view model =
     case model.state of
         Open ->
             viewOpen model
 
         Closed ->
-            viewClosed model
+            viewClosed
 
 
-viewOpen : { state : State, values : List String } -> Html a
+viewOpen : Model -> Html a
 viewOpen model =
     div []
         [ p [] [ text "Click to Open" ]
