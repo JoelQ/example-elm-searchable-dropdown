@@ -4,7 +4,11 @@ import Html exposing (..)
 
 
 main =
-    view initialModel
+    Html.beginnerProgram
+        { model = initialModel
+        , view = view
+        , update = update
+        }
 
 
 type State
@@ -61,3 +65,8 @@ viewClosed =
 dropdownItem : String -> Html a
 dropdownItem value =
     li [] [ text value ]
+
+
+update : a -> Model -> Model
+update _ model =
+    model
