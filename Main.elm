@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Html exposing (..)
+import Html.Events exposing (onClick)
 
 
 main =
@@ -37,7 +38,7 @@ fruits =
     ]
 
 
-view : Model -> Html a
+view : Model -> Html Msg
 view model =
     case model.state of
         Open ->
@@ -47,18 +48,18 @@ view model =
             viewClosed
 
 
-viewOpen : Model -> Html a
+viewOpen : Model -> Html Msg
 viewOpen model =
     div []
-        [ p [] [ text "Click to Open" ]
+        [ p [ onClick CloseSelect ] [ text "Click to close" ]
         , ul [] (List.map dropdownItem model.values)
         ]
 
 
-viewClosed : Html a
+viewClosed : Html Msg
 viewClosed =
     div []
-        [ p [] [ text "Click to Close" ]
+        [ p [ onClick OpenSelect ] [ text "Click to open" ]
         ]
 
 
@@ -67,6 +68,16 @@ dropdownItem value =
     li [] [ text value ]
 
 
-update : a -> Model -> Model
-update _ model =
-    model
+type Msg
+    = OpenSelect
+    | CloseSelect
+
+
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        OpenSelect ->
+            { model | state = Open }
+
+        CloseSelect ->
+            { model | state = Closed }
