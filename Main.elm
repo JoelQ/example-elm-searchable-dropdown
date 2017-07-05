@@ -112,7 +112,7 @@ update msg model =
             { model | state = Closed }
 
         ItemSelected value ->
-            { model | selected = Just value, state = Closed }
+            { model | selected = Just value, state = Closed, query = "" }
 
         SearchInput query ->
             { model | query = query }
