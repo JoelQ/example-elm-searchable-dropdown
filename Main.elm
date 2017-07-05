@@ -67,9 +67,9 @@ viewClosed model =
         ]
 
 
-dropdownItem : String -> Html a
+dropdownItem : String -> Html Msg
 dropdownItem value =
-    li [] [ text value ]
+    li [ onClick (ItemSelected value) ] [ text value ]
 
 
 dropdownHead : Maybe String -> Msg -> Html Msg
@@ -85,6 +85,7 @@ dropdownHead selected msg =
 type Msg
     = OpenSelect
     | CloseSelect
+    | ItemSelected String
 
 
 update : Msg -> Model -> Model
@@ -95,3 +96,6 @@ update msg model =
 
         CloseSelect ->
             { model | state = Closed }
+
+        ItemSelected value ->
+            { model | selected = Just value }
