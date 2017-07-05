@@ -21,6 +21,7 @@ type alias Model =
     { state : State
     , values : List String
     , selected : Maybe String
+    , query : String
     }
 
 
@@ -29,6 +30,7 @@ initialModel =
     { state = Open
     , values = fruits
     , selected = Nothing
+    , query = ""
     }
 
 
@@ -56,7 +58,7 @@ viewOpen : Model -> Html Msg
 viewOpen model =
     div []
         [ dropdownHead model.selected CloseSelect
-        , ul [] (List.map dropdownItem model.values)
+        , ul [] (List.map dropdownItem (filteredValues model))
         ]
 
 
@@ -80,6 +82,16 @@ dropdownHead selected msg =
 
         Just value ->
             p [ onClick msg ] [ text value ]
+
+
+filteredValues : Model -> List String
+filteredValues model =
+    List.filter (\v -> matchQuery model.query v) model.values
+
+
+matchQuery : String -> String -> Bool
+matchQuery needle haystack =
+    String.contains (String.toLower needle) (String.toLower haystack)
 
 
 type Msg
