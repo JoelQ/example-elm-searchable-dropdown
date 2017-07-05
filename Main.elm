@@ -2,6 +2,9 @@ module Main exposing (main)
 
 import Html exposing (..)
 import Html.Events exposing (onClick, onInput)
+import Html.Attributes exposing (id)
+import Dom
+import Task
 
 
 main =
@@ -28,7 +31,7 @@ type alias Model =
 
 initialModel : Model
 initialModel =
-    { state = Open
+    { state = Closed
     , values = fruits
     , selected = Nothing
     , query = ""
@@ -59,7 +62,7 @@ viewOpen : Model -> Html Msg
 viewOpen model =
     div []
         [ dropdownHead model.selected CloseSelect
-        , input [ onInput SearchInput ] []
+        , input [ id "search-box", onInput SearchInput ] []
         , ul [] (List.map dropdownItem (filteredValues model))
         ]
 
@@ -101,13 +104,17 @@ type Msg
     | CloseSelect
     | ItemSelected String
     | SearchInput String
+    | Noop
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        Noop ->
+            ( model, Cmd.none )
+
         OpenSelect ->
-            ( { model | state = Open }, Cmd.none )
+            ( { model | state = Open }, focus )
 
         CloseSelect ->
             ( { model | state = Closed }, Cmd.none )
@@ -119,3 +126,9 @@ update msg model =
 
         SearchInput query ->
             ( { model | query = query }, Cmd.none )
+
+
+focus : Cmd Msg
+focus =
+    Dom.focus "search-box"
+        |> Task.attempt (always Noop)
