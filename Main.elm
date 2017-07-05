@@ -1,7 +1,7 @@
 module Main exposing (main)
 
 import Html exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput)
 
 
 main =
@@ -58,6 +58,7 @@ viewOpen : Model -> Html Msg
 viewOpen model =
     div []
         [ dropdownHead model.selected CloseSelect
+        , input [ onInput SearchInput ] []
         , ul [] (List.map dropdownItem (filteredValues model))
         ]
 
@@ -98,6 +99,7 @@ type Msg
     = OpenSelect
     | CloseSelect
     | ItemSelected String
+    | SearchInput String
 
 
 update : Msg -> Model -> Model
@@ -111,3 +113,6 @@ update msg model =
 
         ItemSelected value ->
             { model | selected = Just value, state = Closed }
+
+        SearchInput query ->
+            { model | query = query }
