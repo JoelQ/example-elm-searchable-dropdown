@@ -5,10 +5,11 @@ import Html.Events exposing (onClick, onInput)
 
 
 main =
-    Html.beginnerProgram
-        { model = initialModel
+    Html.program
+        { init = ( initialModel, Cmd.none )
         , view = view
         , update = update
+        , subscriptions = (\_ -> Sub.none)
         }
 
 
@@ -102,17 +103,19 @@ type Msg
     | SearchInput String
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         OpenSelect ->
-            { model | state = Open }
+            ( { model | state = Open }, Cmd.none )
 
         CloseSelect ->
-            { model | state = Closed }
+            ( { model | state = Closed }, Cmd.none )
 
         ItemSelected value ->
-            { model | selected = Just value, state = Closed, query = "" }
+            ( { model | selected = Just value, state = Closed, query = "" }
+            , Cmd.none
+            )
 
         SearchInput query ->
-            { model | query = query }
+            ( { model | query = query }, Cmd.none )
