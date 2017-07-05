@@ -18,13 +18,17 @@ type State
 
 
 type alias Model =
-    { state : State, values : List String }
+    { state : State
+    , values : List String
+    , selected : Maybe String
+    }
 
 
 initialModel : Model
 initialModel =
     { state = Open
     , values = fruits
+    , selected = Nothing
     }
 
 
@@ -45,27 +49,37 @@ view model =
             viewOpen model
 
         Closed ->
-            viewClosed
+            viewClosed model
 
 
 viewOpen : Model -> Html Msg
 viewOpen model =
     div []
-        [ p [ onClick CloseSelect ] [ text "Click to close" ]
+        [ dropdownHead model.selected CloseSelect
         , ul [] (List.map dropdownItem model.values)
         ]
 
 
-viewClosed : Html Msg
-viewClosed =
+viewClosed : Model -> Html Msg
+viewClosed model =
     div []
-        [ p [ onClick OpenSelect ] [ text "Click to open" ]
+        [ dropdownHead model.selected OpenSelect
         ]
 
 
 dropdownItem : String -> Html a
 dropdownItem value =
     li [] [ text value ]
+
+
+dropdownHead : Maybe String -> Msg -> Html Msg
+dropdownHead selected msg =
+    case selected of
+        Nothing ->
+            p [ onClick msg ] [ text "Click to toggle" ]
+
+        Just value ->
+            p [ onClick msg ] [ text value ]
 
 
 type Msg
