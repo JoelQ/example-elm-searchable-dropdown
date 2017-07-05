@@ -98,4 +98,4 @@ update msg model =
             { model | state = Closed }
 
         ItemSelected value ->
-            { model | selected = Just value }
+            { model | selected = Just value, state = Closed }
