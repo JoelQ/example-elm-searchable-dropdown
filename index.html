@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Dropdowns!</title>
+
+    <style>
+      .dropdown {
+        width: 150px;
+      }
+
+      .dropdown-body {
+        border: lightgray solid 1px;
+      }
+
+      ul {
+        list-style-type: none;
+        overflow-y: scroll;
+        height: 100px;
+        padding-left: 10px;
+      }
+
+      input {
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+
+      p {
+        padding: 5px 0px 5px 10px;
+        margin-bottom: 0px;
+        border: lightgray solid 1px;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="elm"></div>
+    <script src="main.js"></script>
+
+    <script>
+      Elm.Main.embed(document.getElementById("elm"));
+    </script>
+  </body>
+</html>

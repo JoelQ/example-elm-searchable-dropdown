@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Html exposing (..)
 import Html.Events exposing (onClick, onInput)
-import Html.Attributes exposing (id)
+import Html.Attributes exposing (id, class)
 import Dom
 import Task
 
@@ -45,6 +45,13 @@ fruits =
     , "oranges"
     , "peaches"
     , "strawberries"
+    , "nectarines"
+    , "melons"
+    , "raspberries"
+    , "apricots"
+    , "blueberries"
+    , "guava"
+    , "plantain"
     ]
 
 
@@ -60,16 +67,15 @@ view model =
 
 viewOpen : Model -> Html Msg
 viewOpen model =
-    div []
+    div [ class "dropdown" ]
         [ dropdownHead model.selected CloseSelect
-        , input [ id "search-box", onInput SearchInput ] []
-        , ul [] (List.map dropdownItem (filteredValues model))
+        , dropdownBody model
         ]
 
 
 viewClosed : Model -> Html Msg
 viewClosed model =
-    div []
+    div [ class "dropdown" ]
         [ dropdownHead model.selected OpenSelect
         ]
 
@@ -87,6 +93,14 @@ dropdownHead selected msg =
 
         Just value ->
             p [ onClick msg ] [ text value ]
+
+
+dropdownBody : Model -> Html Msg
+dropdownBody model =
+    div [ class "dropdown-body" ]
+        [ input [ id "search-box", onInput SearchInput ] []
+        , ul [] (List.map dropdownItem (filteredValues model))
+        ]
 
 
 filteredValues : Model -> List String
