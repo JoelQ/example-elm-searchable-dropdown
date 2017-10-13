@@ -213,3 +213,21 @@ just use `elm reactor`. We must now compile the app using `elm-make`
 
 * [Commit](https://github.com/JoelQ/example-elm-searchable-dropdown/commit/bf46698113cab50c2511e6c37000b3889297bb34)
 * [Ellie](https://ellie-app.com/sGbMLY7kma1/0)
+
+## License
+
+This project is distributed under the [BSD 3-clause license](LICENSE.md)
+
+## About thoughtbot
+
+![thoughtbot](http://presskit.thoughtbot.com/images/thoughtbot-logo-for-readmes.svg)
+
+This example project and walkthrough was developed for a workshop given at
+[thoughtbot](https://thoughtbot.com?utm_source=github).
+
+We love open source software!
+See [our other projects][community] or
+[hire us][hire] to design, develop, and grow your product.
+
+[community]: https://thoughtbot.com/community?utm_source=github
+[hire]: https://thoughtbot.com?utm_source=github
